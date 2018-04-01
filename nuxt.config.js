@@ -41,10 +41,9 @@ module.exports = {
   },
   env: {
     baseUrl: process.env.BASE_URL || 'http://localhost:3000',
-    apiEndpoint: process.env.API_URL || 'http://api.oceanstats.io',
-    cors: 'http://cors-proxy.htmldriven.com/?url='
+    apiEndpoint: process.env.API_URL || 'http://api.oceanstats.io'
   },
   router: {
-    base: '/oceanstats/'
+    base: '/'
   }
 };

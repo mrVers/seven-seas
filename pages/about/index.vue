@@ -18,7 +18,6 @@
 
         <p><strong>Oceanstats.io</strong> is a nifty ICO performance tracker.</p>
         <p>Brought to you by <strong><a href="https://www.oceanpool.io">Oceanpool.io</a></strong>, an inclusive ICO presale fundraising platform.</p>
-        <p>Tip jar: 0x</p>
       </div>
 
     </section>
