@@ -26,13 +26,13 @@
         <span class="label">ICO Price</span>
       </div>
     </div>
-    <div class="th" v-bind:class="{ 'th-active': sortKey === 'price_usd' }">
+    <div class="th" v-bind:class="{ 'th-active': (sortKey === 'price_usd' || sortKey === 'eth_price') }">
       <div class="outer-label" @click="sortBy('price_usd')">
         <span class="sort-order" v-bind:class="sortOrder === 'asc' ? 'sort-asc' : 'sort-desc'"></span>
         <span class="label">Curr. Price</span>
       </div>
     </div>
-    <div class="th" v-bind:class="{ 'th-active': sortKey === 'roi' }">
+    <div class="th" v-bind:class="{ 'th-active': (sortKey === 'roi' || sortKey === 'eth_roi') }">
       <div class="outer-label" @click="sortBy('roi')">
         <span class="sort-order" v-bind:class="sortOrder === 'asc' ? 'sort-asc' : 'sort-desc'"></span>
         <span class="label">ROI since ICO</span>

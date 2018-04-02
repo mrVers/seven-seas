@@ -7,7 +7,7 @@
 
       <div class="header">
         <div class="header-left">
-          <h1 class="title"><span class="burger-icon" @click="$store.commit('toggleSidebar')">☰</span> Recent ICOs</h1>
+          <h1 class="title"><span class="burger-icon" @click="$store.commit('toggleSidebar')">☰</span> ROI Since ICO</h1>
         </div>
 
         <div class="header-right">
@@ -85,7 +85,7 @@
 
   </main>
 </template>
-<style src="./index.scss" lang="scss"></style>
+<style lang="scss"></style>
 <script>
 
   import AppLogo from '~/components/AppLogo.vue';
@@ -132,8 +132,8 @@
             this.copy = icos;
             this.icos = icos;
             this.loaded = true;
-            //console.log(this.icos);
-            console.log(this.$store.icoData);
+
+            this.sortBy('roi');
           })
           .catch(err => {
             console.log(err);
@@ -141,6 +141,7 @@
       } else {
         this.icos = this.$store.state.icoData;
         this.loaded = true;
+        this.sortBy('roi');
       }
     },
     computed: {
@@ -180,7 +181,7 @@
           this.sortOrder = (this.sortOrder === 'asc') ? 'desc' : 'asc';
         } else {
           this.sortKey = key;
-          this.sortOrder = 'asc';
+          this.sortOrder = 'desc';
         }
 
         // todo - update logic when usd vs eth base
@@ -284,7 +285,3 @@
 
 
 </script>
-
-
-
-

@@ -10,10 +10,10 @@
           <nuxt-link to="/" class="nav-link" exact>Recent ICOs</nuxt-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link" >ROI Since ICO</a>
+          <nuxt-link to="/roi-since-ico" class="nav-link" >ROI Since ICO</nuxt-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link" >ROI vs ETH</a>
+          <nuxt-link to="/roi-vs-eth" class="nav-link" >ROI vs ETH</nuxt-link>
         </li>
         <li class="nav-item">
           <nuxt-link to="/about" class="nav-link">About</nuxt-link>
