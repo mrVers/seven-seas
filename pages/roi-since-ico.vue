@@ -123,11 +123,9 @@
     },
     created () {
       if (!this.$store.state.icoData.length) {
-        axios.get(`/ico/`)
+        axios.get(`${process.env.apiEndpoint}/ico/`)
           .then(res => res.data)
           .then(icos => {
-
-            console.log(icos);
             this.$store.commit('add', icos);
             this.copy = icos;
             this.icos = icos;
@@ -194,7 +192,11 @@
 
 
         // [ico => ico[this.sortKey].toLowerCase()]
-        this.icos = _.orderBy(this.icos, [( o ) => { return o[this.sortKey] || ''}], [this.sortOrder]);
+        if (process.browser) {
+          this.icos = _.orderBy(this.icos, [(o) => {
+            return o[this.sortKey] || ''
+          }], [this.sortOrder]);
+        }
 
       },
 

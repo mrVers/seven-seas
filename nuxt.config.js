@@ -25,6 +25,11 @@ module.exports = {
    ** Build configuration
    */
   build: {
+    vendor: [
+      'axios',
+      'lodash',
+      'vue2-filters'
+    ],
     /*
      ** Run ESLint on save
      */
@@ -39,6 +44,11 @@ module.exports = {
       }
     }
   },
+  plugins: [
+    // '~/plugins/axios',
+    '~/plugins/lodash',
+    '~/plugins/vue2-filters',
+  ],
   env: {
     baseUrl: process.env.BASE_URL || 'http://localhost:3000',
     apiEndpoint: process.env.API_URL || 'http://api.oceanstats.io'

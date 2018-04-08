@@ -11,8 +11,6 @@ const createStore = () => {
         state.icoData = icos;
       },
       toggleSidebar(state) {
-        console.log('toggling');
-        console.log(state.sidebarOpen);
         state.sidebarOpen = !state.sidebarOpen;
       }
     }

@@ -132,8 +132,6 @@
             this.copy = icos;
             this.icos = icos;
             this.loaded = true;
-            //console.log(this.icos);
-            console.log(this.$store.icoData);
           })
           .catch(err => {
             console.log(err);
@@ -187,10 +185,6 @@
         if (this.sortKey === 'ico_price' && this.base !== 'USD') {
           this.sortKey = 'ico_eth_price';
         }
-
-        console.log(this.sortKey);
-        console.log(this.sortOrder);
-
 
         // [ico => ico[this.sortKey].toLowerCase()]
         this.icos = _.orderBy(this.icos, [( o ) => { return o[this.sortKey] || ''}], [this.sortOrder]);
