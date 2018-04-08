@@ -14,8 +14,8 @@
         <span class="label">Platform</span>
       </div>
     </div>
-    <div class="th th-date" v-bind:class="{ 'th-active': sortKey === 'ico_ended' }">
-      <div class="outer-label" @click="sortBy('ico_ended')">
+    <div class="th th-date" v-bind:class="{ 'th-active': sortKey === 'ico_started' }">
+      <div class="outer-label" @click="sortBy('ico_started')">
         <span class="sort-order" v-bind:class="sortOrder === 'asc' ? 'sort-asc' : 'sort-desc'"></span>
         <span class="label">ICO Date</span>
       </div>
@@ -32,7 +32,7 @@
         <span class="label">Curr. Price</span>
       </div>
     </div>
-    <div class="th" v-bind:class="{ 'th-active': (sortKey === 'roi' || sortKey === 'eth_roi') }">
+    <div class="th th-primary" v-bind:class="{ 'th-active': (sortKey === 'roi' || sortKey === 'eth_roi') }">
       <div class="outer-label" @click="sortBy('roi')">
         <span class="sort-order" v-bind:class="sortOrder === 'asc' ? 'sort-asc' : 'sort-desc'"></span>
         <span class="label">ROI since ICO</span>
@@ -92,11 +92,14 @@
 
   .table-header {
     display: flex;
-    width: 100%;
+    width: 210%;
     flex: 0 0 30px;
     min-height: 20px;
     margin: 0 15px;
-    // background: hsl(222, 21%, 25%)
+
+    @media screen and (min-width: 768px) {
+      width: auto;
+    }
   }
 
   .th {
@@ -168,7 +171,11 @@
 
   .th-name {
     width: 100%;
-    order: 0
+    order: 0;
+
+    @media screen and (max-width: 767px) {
+      text-align: left;
+    }
   }
 
   .th-date {

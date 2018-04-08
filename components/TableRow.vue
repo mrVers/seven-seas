@@ -3,17 +3,19 @@
     <!--<div class="td td-logo">
       <img src="https://s3-us-west-2.amazonaws.com/icostats/logos/etheroll.png" alt="Etheroll" class="logo-0-68">
     </div>-->
-    <div class="td td-name">{{ coin.name }} ({{ coin.ticker }})</div>
+    <div class="td td-name">{{ coin.name }}</div>
     <div class="td td-platform"><span class="platform-tag" v-if="coin.platform !== null">{{ coin.platform }}</span></div>
-    <div class="td td-date">{{ coin.ico_ended || '--' }}</div>
+    <div class="td td-date">{{ coin.ico_started || '--' }}</div>
     <div class="td td-price">
-     <span class="dollar-0-77" v-if="coin.ico_price && base === 'USD'">$</span>{{ (base === 'USD' ? coin.ico_price : coin.ico_eth_price) || 'N/A' }}
+     <span class="dollar" v-if="coin.ico_price && base === 'USD'">$</span>{{ (base === 'USD' ? coin.ico_price : coin.ico_eth_price) || 'N/A' }}
     </div>
-    <div class="td td-price"><span><span class="dollar-0-77" v-if="coin.ico_price && base === 'USD'">$</span>{{ base === 'USD' ? coin.price_usd : coin.eth_price  || 'N/A' }}</span></div>
-    <div class="td td-roi" v-if="(base === 'USD' ? coin.roi : coin.eth_roi)" v-bind:class="(base === 'USD' ? coin.roi : coin.eth_roi) > 0 ? 'td-primary-positive' : 'td-primary-negative'">
+    <div class="td td-price">
+      <span class="dollar" v-if="coin.price_usd && base === 'USD'">$</span>{{ (base === 'USD' ? coin.price_usd : coin.eth_price) || 'N/A' }}
+    </div>
+    <div class="td td-roi td-primary" v-if="(base === 'USD' ? coin.roi : coin.eth_roi)" v-bind:class="(base === 'USD' ? coin.roi : coin.eth_roi) > 0 ? 'td-primary-positive' : 'td-primary-negative'">
       {{ base === 'USD' ? coin.roi : coin.eth_roi | currency('', 2) || 'N/A' }}<span class="percent" v-if="coin.roi">%</span>
     </div>
-    <div class="td td-roi td-NA" v-else>N/A</div>
+    <div class="td td-roi td-primary td-NA" v-else>N/A</div>
     <div class="td td-primary" v-bind:class="flipOrFlop(coin.percent_change_1h)">{{ coin.percent_change_1h || 0}}%</div>
     <div class="td td-primary" v-bind:class="flipOrFlop(coin.percent_change_24h)"><span><span>{{ coin.percent_change_24h || 0}}%</span></span></div>
     <div class="td td-primary" v-bind:class="flipOrFlop(coin.percent_change_7d)"><span><span>{{ coin.percent_change_7d || 0}}%</span></span></div>
@@ -47,8 +49,8 @@
 <style scoped lang="scss">
 
   .tr {
-    height: 60px;
-    min-height: 60px;
+    height: 65px;
+    min-height: 65px;
     display: flex;
     align-items: center;
     border-bottom: 1px solid #e9e9e9;
@@ -56,6 +58,10 @@
 
     &.is-active {
       background: hsla(0, 0%, 100%, 0.05);
+    }
+
+    &:hover {
+      background-color: #f9f9f9;
     }
   }
 
@@ -78,7 +84,7 @@
   }
 
   .td-platform {
-    width: 60%;
+    width: 70%;
     order: 0;
     position: relative;
     overflow: visible;
@@ -109,6 +115,18 @@
     order: 0;
     position: relative;
     overflow: visible;
+
+    @media screen and (max-width: 767px) {
+      overflow: hidden;
+      overflow-wrap: break-word;
+      font-size: 12px;
+      text-align: left;
+    }
+
+    @media screen and (max-width: 400px) {
+      width: 140%;
+    }
+
   }
 
   .platform-tag {
@@ -154,5 +172,10 @@
 
   .td-small {
     width: 65%
+  }
+
+  .dollar {
+    font-weight: 400;
+    margin-right: 2px;
   }
 </style>

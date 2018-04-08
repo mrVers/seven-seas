@@ -45,9 +45,9 @@ module.exports = {
     }
   },
   plugins: [
-    // '~/plugins/axios',
-    '~/plugins/lodash',
-    '~/plugins/vue2-filters',
+    // { src: '~/plugins/axios', ssr: false },
+    { src: '~/plugins/lodash', ssr: false },
+    { src: '~/plugins/vue2-filters', ssr: true }
   ],
   env: {
     baseUrl: process.env.BASE_URL || 'http://localhost:3000',

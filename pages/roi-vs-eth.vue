@@ -1,7 +1,8 @@
 <template lang="html">
   <main class="app-container">
 
-    <sidebar :sidebarOpen="$store.state.sidebarOpen"></sidebar>
+    <sidebar :sidebarOpen="$store.state.sidebarOpen" v-on:onFilter="filterAll($event)" v-on:onBaseChange="setBase($event)"
+             :base="base" :platform="platform" :dateFilter="dateFilter" :flip="flip"></sidebar>
 
     <section class="container-1" v-bind:class="{ 'has-sidebar': $store.state.sidebarOpen }">
 
@@ -11,38 +12,9 @@
         </div>
 
         <div class="header-right">
-          <div class="currency-container">
-            <div class="currency">
-              <div class="selectCurrencyTitle-0-46">Platform type</div>
-              <div class="selectCurrency-0-45">
-                <div class="selectCurrencyItem-0-47" @click="filterAll('platform', 'ETH')" v-bind:class="{ 'is-active': platform === 'ETH' }">ETH</div>
-                <div class="selectCurrencyItem-0-47" @click="filterAll('platform', 'NEO')" v-bind:class="{ 'is-active': platform === 'NEO'}">NEO</div>
-                <div class="selectCurrencyItem-0-47" @click="filterAll('platform', 'OTHER')" v-bind:class="{ 'is-active': platform === 'OTHER'}">OTHER</div>
-              </div>
-            </div>
-            <div class="currency">
-              <div class="selectCurrencyTitle-0-46">Date</div>
-              <div class="selectCurrency-0-45">
-                <div class="selectCurrencyItem-0-47" @click="filterAll('date', 1)" v-bind:class="{ 'is-active': dateFilter === 1 }">Last 1M</div>
-                <div class="selectCurrencyItem-0-47" @click="filterAll('date', 3)" v-bind:class="{ 'is-active': dateFilter === 3 }">Last 3M</div>
-                <div class="selectCurrencyItem-0-47" @click="filterAll('date', 12)" v-bind:class="{ 'is-active': dateFilter === 12 }">Last 1Y</div>
-              </div>
-            </div>
-            <div class="currency">
-              <div class="selectCurrencyTitle-0-46">ROI</div>
-              <div class="selectCurrency-0-45">
-                <div class="selectCurrencyItem-0-47" @click="filterAll('flip', 'FLIP')" v-bind:class="{ 'is-active': flip === 'FLIP'}">FLIP</div>
-                <div class="selectCurrencyItem-0-47" @click="filterAll('flip', 'FLOP')" v-bind:class="{ 'is-active': flip === 'FLOP' }">FLOP</div>
-              </div>
-            </div>
-            <div class="currency">
-              <div class="selectCurrencyTitle-0-46">Base Currency</div>
-              <div class="selectCurrency-0-45">
-                <div class="selectCurrencyItem-0-47" @click="base = 'USD'" v-bind:class="{ 'is-active': base === 'USD'}">USD</div>
-                <div class="selectCurrencyItem-0-47" @click="base = 'ETH'" v-bind:class="{ 'is-active': base === 'ETH'}">ETH</div>
-              </div>
-            </div>
-          </div>
+          <filterable-header v-on:onFilter="filterAll($event)" v-on:onBaseChange="setBase($event)"
+                             :base="base" :platform="platform" :dateFilter="dateFilter" :flip="flip">
+          </filterable-header>
           <div class="navigation-top">
             <div class="search-top">
               <input type="text"
@@ -95,6 +67,7 @@
   import axios from '~/plugins/axios';
   import '~/plugins/vue2-filters';
   import '~/plugins/lodash';
+  import FilterableHeader from '~/components/FilterableHeader.vue';
 
   export default {
     name: 'index',
@@ -119,7 +92,8 @@
       AppLogo,
       TableRow,
       TableHead,
-      Sidebar
+      Sidebar,
+      FilterableHeader
     },
     created () {
       if (!this.$store.state.icoData.length) {
@@ -192,9 +166,9 @@
         console.log(this.sortKey);
         console.log(this.sortOrder);
 
-
-        // [ico => ico[this.sortKey].toLowerCase()]
-        this.icos = _.orderBy(this.icos, [( o ) => { return o[this.sortKey] || ''}], [this.sortOrder]);
+        if (process.browser) {
+          this.icos = _.orderBy(this.icos, [( o ) => { return o[this.sortKey] || ''}], [this.sortOrder]);
+        }
 
       },
 
@@ -231,7 +205,7 @@
         if (monthLength) {
           this.dateFilter = monthLength;
           this.icos = _.filter(this.icos, (ico) => {
-            let date = new Date(ico.ico_ended);
+            let date = new Date(ico.ico_started);
             let d = new Date();
             d.setMonth(d.getMonth() - monthLength);
 
@@ -242,7 +216,10 @@
         console.log('DATE LENGTH ', this.icos.length);
       },
 
-      filterAll(type, value) {
+      filterAll(event) {
+
+        const type = event.type;
+        const value = event.value;
 
         this.icos = this.$store.state.icoData;
         this.sortKey = '';
@@ -279,6 +256,10 @@
         this.filterByTicker(this.platform);
         this.showflipOrFlop(this.flip);
         this.filterByDate(this.dateFilter);
+      },
+
+      setBase(base) {
+        this.base = base;
       }
     }
   };
