@@ -100,8 +100,6 @@
         axios.get(`/ico/`)
           .then(res => res.data)
           .then(icos => {
-
-            console.log(icos);
             this.$store.commit('add', icos);
             this.copy = icos;
             this.icos = icos;
@@ -140,7 +138,6 @@
           this.platform = ticker;
           this.icos = _.filter(this.icos, ['platform', this.platform]);
         }
-        console.log('TICKER LENGTH ', this.icos.length);
       },
 
       sortBy (key) {
@@ -163,9 +160,6 @@
           this.sortKey = 'ico_eth_price';
         }
 
-        console.log(this.sortKey);
-        console.log(this.sortOrder);
-
         if (process.browser) {
           this.icos = _.orderBy(this.icos, [( o ) => { return o[this.sortKey] || ''}], [this.sortOrder]);
         }
@@ -182,8 +176,6 @@
           this.icos = this.icos.filter((ico) => ico.roi < 0);
           this.flip = 'FLOP';
         }
-
-        console.log('FLIP LENGTH ', this.icos.length);
 
       },
 
@@ -212,8 +204,6 @@
             return +date > +d;
           });
         }
-
-        console.log('DATE LENGTH ', this.icos.length);
       },
 
       filterAll(event) {
@@ -248,10 +238,6 @@
             this.dateFilter = value;
           }
         }
-
-        console.log(this.platform);
-        console.log(this.flip);
-        console.log(this.dateFilter);
 
         this.filterByTicker(this.platform);
         this.showflipOrFlop(this.flip);

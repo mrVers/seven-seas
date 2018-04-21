@@ -100,8 +100,6 @@
         axios.get(`/ico/`)
           .then(res => res.data)
           .then(icos => {
-
-            console.log(icos);
             this.$store.commit('add', icos);
             this.copy = icos;
             this.icos = icos;
@@ -137,7 +135,6 @@
           this.platform = ticker;
           this.icos = _.filter(this.icos, ['platform', this.platform]);
         }
-        console.log('TICKER LENGTH ', this.icos.length);
       },
 
       sortBy (key) {
@@ -177,8 +174,6 @@
           this.flip = 'FLOP';
         }
 
-        console.log('FLIP LENGTH ', this.icos.length);
-
       },
 
       switchPage(direction) {
@@ -207,7 +202,6 @@
           });
         }
 
-        console.log('DATE LENGTH ', this.icos.length);
       },
 
       filterAll(event) {
@@ -242,10 +236,6 @@
             this.dateFilter = value;
           }
         }
-
-        console.log(this.platform);
-        console.log(this.flip);
-        console.log(this.dateFilter);
 
         this.filterByTicker(this.platform);
         this.showflipOrFlop(this.flip);

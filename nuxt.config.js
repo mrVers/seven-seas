@@ -47,7 +47,8 @@ module.exports = {
   plugins: [
     // { src: '~/plugins/axios', ssr: false },
     { src: '~/plugins/lodash', ssr: false },
-    { src: '~/plugins/vue2-filters', ssr: true }
+    { src: '~/plugins/vue2-filters', ssr: true },
+    { src: '~plugins/ga.js', ssr: false }
   ],
   env: {
     baseUrl: process.env.BASE_URL || 'http://localhost:3000',
