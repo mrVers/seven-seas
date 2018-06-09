@@ -20,6 +20,10 @@ html, body {
   margin: 0;
 }
 
+.app-container {
+  overflow: hidden;
+}
+
 .button--green {
   display: inline-block;
   border-radius: 4px;
@@ -69,12 +73,13 @@ a, a:hover, a:focus, a:visited
   text-transform: uppercase;
   margin-top: 10px;
   margin-bottom: 10px;
+  user-select: none;
 }
 
 .header {
   padding: 20px;
   align-self: flex-start;
-  flex: 0 0 120px;
+  // flex: 0 0 120px;
   width: 100%;
   display: flex;
   align-items: flex-start;
@@ -210,7 +215,6 @@ span.right {
   flex-grow: 1;
   flex-direction: column;
   overflow-x: auto;
-  padding-top: 22px;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -283,6 +287,7 @@ span.right {
   font-weight: 300;
   cursor: pointer;
   margin-right: 15px;
+  user-select: none;
 }
 
 .no-results {
@@ -302,34 +307,12 @@ span.right {
   }
 }
 
-.pagination {
-  display: flex;
-  align-self: flex-end;
-  flex-direction: row;
-  padding: 10px;
-
-  .pagination-link {
-    cursor: pointer;
-    padding: 0 10px;
-  }
-
-  .prev-page {
-
-  }
-
-  .next-page {
-
-  }
-}
-
 .navigation-top {
   display: flex;
   width: 100%;
   justify-content: space-between;
 
-  .pagination {
-    min-width: 250px;
-    align-self: center;
-    justify-content: flex-end;
+  @media screen and (max-width: 767px) {
+    flex-flow: column;
   }
 }

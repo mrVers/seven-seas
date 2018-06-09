@@ -4,21 +4,21 @@
       <img src="https://s3-us-west-2.amazonaws.com/icostats/logos/etheroll.png" alt="Etheroll" class="logo-0-68">
     </div>-->
     <div class="td td-name">{{ coin.name }}</div>
-    <div class="td td-platform"><span class="platform-tag" v-if="coin.platform !== null">{{ coin.platform }}</span></div>
-    <div class="td td-date">{{ coin.ico_started || '--' }}</div>
+    <div class="td td-platform"><span class="platform-tag" v-if="coin.finance.platform !== null">{{ coin.finance.platform || 'N/A'}}</span></div>
+    <div class="td td-date">{{ coin.dates.icoStart.split(' ')[0] || '--' }}</div>
     <div class="td td-price">
-     <span class="dollar" v-if="coin.ico_price && base === 'USD'">$</span>{{ (base === 'USD' ? coin.ico_price : coin.ico_eth_price) || 'N/A' }}
+     <span class="dollar" v-if="coin.finance.ico_price && base === 'USD'">$</span>{{ (base === 'USD' ? coin.finance.ico_price : coin.finance.ico_eth_price) || '--' }}
     </div>
     <div class="td td-price">
-      <span class="dollar" v-if="coin.price_usd && base === 'USD'">$</span>{{ (base === 'USD' ? coin.price_usd : coin.eth_price) || 'N/A' }}
+      <span class="dollar" v-if="coin.finance.price_usd && base === 'USD'">$</span>{{ (base === 'USD' ? coin.finance.price_usd : coin.finance.eth_price) || '--' }}
     </div>
-    <div class="td td-roi td-primary" v-if="(base === 'USD' ? coin.roi : coin.eth_roi)" v-bind:class="(base === 'USD' ? coin.roi : coin.eth_roi) > 0 ? 'td-primary-positive' : 'td-primary-negative'">
-      {{ base === 'USD' ? coin.roi : coin.eth_roi | currency('', 2) || 'N/A' }}<span class="percent" v-if="coin.roi">%</span>
+    <div class="td td-roi td-primary" v-if="(base === 'USD' ? coin.finance.roi : coin.finance.eth_roi)" v-bind:class="(base === 'USD' ? coin.finance.roi : coin.finance.eth_roi) > 0 ? 'td-primary-positive' : 'td-primary-negative'">
+      {{ base === 'USD' ? coin.finance.roi : coin.finance.eth_roi | currency('', 2) || '--' }}<span class="percent" v-if="coin.finance.roi">%</span>
     </div>
-    <div class="td td-roi td-primary td-NA" v-else>N/A</div>
-    <div class="td td-primary" v-bind:class="flipOrFlop(coin.percent_change_1h)">{{ coin.percent_change_1h || 0}}%</div>
-    <div class="td td-primary" v-bind:class="flipOrFlop(coin.percent_change_24h)"><span><span>{{ coin.percent_change_24h || 0}}%</span></span></div>
-    <div class="td td-primary" v-bind:class="flipOrFlop(coin.percent_change_7d)"><span><span>{{ coin.percent_change_7d || 0}}%</span></span></div>
+    <div class="td td-roi td-primary td-NA" v-else>--</div>
+    <div class="td td-primary" v-bind:class="flipOrFlop(coin.cmc.percent_change_1h)">{{ coin.cmc.percent_change_1h || 0}}%</div>
+    <div class="td td-primary" v-bind:class="flipOrFlop(coin.cmc.percent_change_24h)"><span><span>{{ coin.cmc.percent_change_24h || 0}}%</span></span></div>
+    <div class="td td-primary" v-bind:class="flipOrFlop(coin.cmc.percent_change_7d)"><span><span>{{ coin.cmc.percent_change_7d || 0}}%</span></span></div>
   </div>
 </template>
 

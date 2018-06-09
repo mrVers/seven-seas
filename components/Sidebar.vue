@@ -15,16 +15,16 @@
       <h3 class="sidebar-title">Stats</h3>
       <ul class="sidebar-nav">
         <li class="nav-item">
-          <nuxt-link to="/" class="nav-link" exact>Recent ICOs</nuxt-link>
+          <nuxt-link to="/" @click.native="navigate()" class="nav-link" exact>Recent ICOs</nuxt-link>
         </li>
         <li class="nav-item">
-          <nuxt-link to="/roi-since-ico" class="nav-link" >ROI Since ICO</nuxt-link>
+          <nuxt-link to="/roi-since-ico" @click.native="navigate()" class="nav-link" >ROI Since ICO</nuxt-link>
         </li>
         <li class="nav-item">
-          <nuxt-link to="/roi-vs-eth" class="nav-link" >ROI vs ETH</nuxt-link>
+          <nuxt-link to="/roi-vs-eth" @click.native="navigate()" class="nav-link" >ROI vs ETH</nuxt-link>
         </li>
         <li class="nav-item">
-          <nuxt-link to="/about" class="nav-link">About</nuxt-link>
+          <nuxt-link to="/about" @click.native="navigate()" class="nav-link">About</nuxt-link>
         </li>
       </ul>
     </div>
@@ -53,6 +53,13 @@
       },
       onBaseChange (base) {
         this.$emit('onBaseChange', base);
+      },
+      navigate() {
+        if (window.outerWidth < 768) {
+          setTimeout(() => {
+            this.$store.commit('toggleSidebar');
+          }, 50);
+        }
       }
     }
   };

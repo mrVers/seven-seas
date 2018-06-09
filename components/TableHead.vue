@@ -118,10 +118,18 @@
       display: none;
     }
 
+    .outer-label {
+      display: flex;
+      justify-content: flex-end;
+      user-select: none;
+      .label {
+        user-select: none;
+        cursor: pointer;
+      }
+    }
+
     &.th-active {
       .outer-label {
-        display: flex;
-        justify-content: flex-end;
         .label {
           //border: 1px solid #3251ed;
           color: #ff7126;

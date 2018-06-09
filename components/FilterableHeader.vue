@@ -4,7 +4,7 @@
       <div class="selectCurrencyTitle">Platform type</div>
       <div class="selectCurrency">
         <div class="selectCurrencyItem"
-             @click="onFilter('platform', 'ETH')"
+             @click="onFilter('platform', 'Ethereum')"
              v-bind:class="{ 'is-active': platform === 'ETH' }">ETH
         </div>
         <div class="selectCurrencyItem"
@@ -139,6 +139,7 @@
         align-items: center;
         border-right: 1px solid #7a9cea;
         cursor: pointer;
+        user-select: none;
 
         .mobile-filter & {
           &.mobile-small {

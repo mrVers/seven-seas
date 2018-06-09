@@ -1,13 +1,13 @@
 <template>
   <main class="app-container">
 
-    <sidebar :sidebarOpen="sidebarOpen"></sidebar>
+    <sidebar :sidebarOpen="$store.state.sidebarOpen"></sidebar>
 
-    <section class="container-1" v-bind:class="{ 'has-sidebar': sidebarOpen }">
+    <section class="container-1" v-bind:class="{ 'has-sidebar': $store.state.sidebarOpen }">
 
       <div class="header">
         <div class="header-left">
-          <h1 class="title"><span class="burger-icon" @click="sidebarOpen = !sidebarOpen">☰</span> About</h1>
+          <h1 class="title"><span class="burger-icon" @click="$store.commit('toggleSidebar')">☰</span> About</h1>
         </div>
       </div>
 
@@ -46,7 +46,7 @@
       platform: '',
       flip: '',
       base: 'USD',
-      sidebarOpen: true,
+      sidebarOpen: false,
       perPage: 100,
       pageNumber: 0,
       dateFilter: null
@@ -75,6 +75,7 @@
     margin-top: 0px;
     max-width: 500px;
     text-align: center;
+    padding: 0 20px;
   }
 
   .header {

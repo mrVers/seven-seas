@@ -25,10 +25,7 @@
                      @change="onSearch"
               >
             </div>
-            <div class="pagination">
-              <div class="pagination-link prev-page" @click="switchPage('prev')" v-if="pageNumber > 0">← Previous {{ perPage }}</div>
-              <div class="pagination-link next-page" @click="switchPage('next')" v-if="filteredItems.length > (pageNumber + 1) * perPage">Next {{ perPage }} →</div>
-            </div>
+            <pagination v-on:onPageChange="switchPage($event)" :pageNumber="pageNumber" :itemsCount="filteredItems.length" :perPage="perPage"></pagination>
           </div>
 
         </div>
@@ -46,10 +43,7 @@
           <div class="no-results" v-if="!filteredItems.length && !loaded">
             Loading ...
           </div>
-          <div class="pagination">
-            <div class="pagination-link prev-page" @click="switchPage('prev')" v-if="pageNumber > 0">← Previous {{ perPage }}</div>
-            <div class="pagination-link next-page" @click="switchPage('next')" v-if="filteredItems.length > (pageNumber + 1) * perPage">Next {{ perPage }} →</div>
-          </div>
+          <pagination v-on:onPageChange="switchPage($event)" :pageNumber="pageNumber" :itemsCount="filteredItems.length" :perPage="perPage"></pagination>
         </div>
       </div>
 
@@ -68,6 +62,7 @@
   import '~/plugins/vue2-filters';
   import '~/plugins/lodash';
   import FilterableHeader from '~/components/FilterableHeader.vue';
+  import Pagination from '~/components/Pagination.vue';
 
   export default {
     name: 'index',
@@ -93,7 +88,8 @@
       TableRow,
       TableHead,
       Sidebar,
-      FilterableHeader
+      FilterableHeader,
+      Pagination
     },
     created () {
       if (!this.$store.state.icoData.length) {

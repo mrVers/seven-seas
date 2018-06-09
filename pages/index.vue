@@ -25,10 +25,7 @@
                      @change="onSearch"
               >
             </div>
-            <div class="pagination">
-              <div class="pagination-link prev-page" @click="switchPage('prev')" v-if="pageNumber > 0">← Previous {{ perPage }}</div>
-              <div class="pagination-link next-page" @click="switchPage('next')" v-if="filteredItems.length > (pageNumber + 1) * perPage">Next {{ perPage }} →</div>
-            </div>
+            <pagination v-on:onPageChange="switchPage($event)" :pageNumber="pageNumber" :itemsCount="filteredItems.length" :perPage="perPage"></pagination>
           </div>
 
         </div>
@@ -46,10 +43,7 @@
           <div class="no-results" v-if="!filteredItems.length && !loaded">
             Loading ...
           </div>
-          <div class="pagination">
-            <div class="pagination-link prev-page" @click="switchPage('prev')" v-if="pageNumber > 0">← Previous {{ perPage }}</div>
-            <div class="pagination-link next-page" @click="switchPage('next')" v-if="filteredItems.length > (pageNumber + 1) * perPage">Next {{ perPage }} →</div>
-          </div>
+          <pagination v-on:onPageChange="switchPage($event)" :pageNumber="pageNumber" :itemsCount="filteredItems.length" :perPage="perPage"></pagination>
         </div>
       </div>
 
@@ -68,6 +62,7 @@
   import '~/plugins/vue2-filters';
   import '~/plugins/lodash';
   import FilterableHeader from '~/components/FilterableHeader.vue';
+  import Pagination from '~/components/Pagination.vue';
 
   export default {
     name: 'index',
@@ -93,7 +88,8 @@
       TableRow,
       TableHead,
       Sidebar,
-      FilterableHeader
+      FilterableHeader,
+      Pagination
     },
     created () {
       if (!this.$store.state.icoData.length) {
@@ -117,7 +113,7 @@
       filteredItems () {
         return this.icos.filter(item => {
           return item.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
-            item.ticker.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
+            item.finance.token.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
         });
       },
       icoData() {
@@ -129,15 +125,28 @@
 
         if (ticker ==='OTHER') {
           this.platform = ticker;
-          this.icos = _.reject(this.icos, (ico) => ico.platform === 'ETH' || ico.platform === 'NEO');
+          this.icos = _.reject(this.icos, (ico) => ico.finance.platform === 'Ethereum' || ico.finance.platform === 'NEO');
           return;
-        } else if (ticker === 'NEO' || ticker === 'ETH') {
+        } else if (ticker === 'NEO' || ticker === 'Ethereum') {
           this.platform = ticker;
-          this.icos = _.filter(this.icos, ['platform', this.platform]);
+          this.icos = _.filter(this.icos, ['finance.platform', this.platform]);
         }
       },
 
       sortBy (key) {
+
+        // platform
+        // name
+        // icoStart
+        // ico_price
+        // ico_price
+        // price_usd
+        // eth_price
+        // roi
+        // eth_roi
+        // percent_change_1h
+        // percent_change_24h
+        // percent_change_7d
 
         if (key === 'roi') {
           if (this.base === 'ETH') {
@@ -158,6 +167,9 @@
         }
 
         if (process.browser) {
+
+          let object;
+
           this.icos = _.orderBy(this.icos, [( o ) => { return o[this.sortKey] || ''}], [this.sortOrder]);
         }
 
@@ -166,11 +178,11 @@
       showflipOrFlop(coinFlip) {
 
         if (coinFlip === 'FLIP') {
-          this.icos = this.icos.filter((ico) => ico.roi > 0);
+          this.icos = this.icos.filter((ico) => ico.finance.roi > 0);
           this.flip = 'FLIP';
         } else if (coinFlip === 'FLOP') {
           // else flop
-          this.icos = this.icos.filter((ico) => ico.roi < 0);
+          this.icos = this.icos.filter((ico) => ico.finance.roi < 0);
           this.flip = 'FLOP';
         }
 
@@ -180,7 +192,7 @@
 
         if (direction === 'next') {
           this.pageNumber++;
-        } else {
+        } else if (this.pageNumber > 0) {
           this.pageNumber--;
         }
       },
@@ -194,7 +206,7 @@
         if (monthLength) {
           this.dateFilter = monthLength;
           this.icos = _.filter(this.icos, (ico) => {
-            let date = new Date(ico.ico_started);
+            let date = new Date(ico.dates.icoStart);
             let d = new Date();
             d.setMonth(d.getMonth() - monthLength);
 
