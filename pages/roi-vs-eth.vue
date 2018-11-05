@@ -18,7 +18,7 @@
         <div class="header-left">
           <h1 class="title"><span 
             class="burger-icon" 
-            @click="$store.commit('toggleSidebar')">☰</span> Recent ICOs</h1>
+            @click="$store.commit('toggleSidebar')">☰</span> ROI vs ETH ROI</h1>
         </div>
 
         <div class="header-right">
@@ -93,14 +93,14 @@ import AppLogo from '~/components/AppLogo.vue';
 import TableRow from '~/components/TableRow.vue';
 import TableHead from '~/components/TableHead.vue';
 import Sidebar from '~/components/Sidebar.vue';
-import '~/plugins/axios';
+import axios from '~/plugins/axios';
 import '~/plugins/vue2-filters';
 import '~/plugins/lodash';
 import FilterableHeader from '~/components/FilterableHeader.vue';
 import Pagination from '~/components/Pagination.vue';
 
 export default {
-  name: 'Index',
+  name: 'ROIvsETH',
   components: {
     AppLogo,
     TableRow,
@@ -119,7 +119,7 @@ export default {
     sortOrder: 'desc',
     platform: '',
     flip: '',
-    base: 'USD',
+    base: 'ETH',
     sidebarOpen: false,
     perPage: 50,
     pageNumber: 0,
@@ -131,8 +131,7 @@ export default {
       return this.icos.filter(item => {
         return (
           item.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
-          item.finance.token.toLowerCase().indexOf(this.search.toLowerCase()) >
-            -1
+          item.ticker.toLowerCase().indexOf(this.search.toLowerCase()) > -1
         );
       });
     },
@@ -150,6 +149,8 @@ export default {
           this.copy = icos;
           this.icos = icos;
           this.loaded = true;
+
+          this.sortBy('roi');
         })
         .catch(err => {
           console.log(err);
@@ -157,6 +158,7 @@ export default {
     } else {
       this.icos = this.$store.state.icoData;
       this.loaded = true;
+      this.sortBy('roi');
     }
   },
   methods: {
@@ -165,31 +167,16 @@ export default {
         this.platform = ticker;
         this.icos = _.reject(
           this.icos,
-          ico =>
-            ico.finance.platform === 'Ethereum' ||
-            ico.finance.platform === 'NEO'
+          ico => ico.platform === 'ETH' || ico.platform === 'NEO'
         );
         return;
-      } else if (ticker === 'NEO' || ticker === 'Ethereum') {
+      } else if (ticker === 'NEO' || ticker === 'ETH') {
         this.platform = ticker;
-        this.icos = _.filter(this.icos, ['finance.platform', this.platform]);
+        this.icos = _.filter(this.icos, ['platform', this.platform]);
       }
     },
 
     sortBy(key) {
-      // platform
-      // name
-      // icoStart
-      // ico_price
-      // ico_price
-      // price_usd
-      // eth_price
-      // roi
-      // eth_roi
-      // percent_change_1h
-      // percent_change_24h
-      // percent_change_7d
-
       if (key === 'roi') {
         if (this.base === 'ETH') {
           key = 'eth_roi';
@@ -200,7 +187,7 @@ export default {
         this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
       } else {
         this.sortKey = key;
-        this.sortOrder = 'asc';
+        this.sortOrder = 'desc';
       }
 
       // todo - update logic when usd vs eth base
@@ -209,8 +196,6 @@ export default {
       }
 
       if (process.browser) {
-        let object;
-
         this.icos = _.orderBy(
           this.icos,
           [
@@ -225,11 +210,11 @@ export default {
 
     showflipOrFlop(coinFlip) {
       if (coinFlip === 'FLIP') {
-        this.icos = this.icos.filter(ico => ico.finance.roi > 0);
+        this.icos = this.icos.filter(ico => ico.roi > 0);
         this.flip = 'FLIP';
       } else if (coinFlip === 'FLOP') {
         // else flop
-        this.icos = this.icos.filter(ico => ico.finance.roi < 0);
+        this.icos = this.icos.filter(ico => ico.roi < 0);
         this.flip = 'FLOP';
       }
     },
@@ -237,7 +222,7 @@ export default {
     switchPage(direction) {
       if (direction === 'next') {
         this.pageNumber++;
-      } else if (this.pageNumber > 0) {
+      } else {
         this.pageNumber--;
       }
     },
@@ -250,7 +235,7 @@ export default {
       if (monthLength) {
         this.dateFilter = monthLength;
         this.icos = _.filter(this.icos, ico => {
-          let date = new Date(ico.dates.icoStart);
+          let date = new Date(ico.ico_started);
           let d = new Date();
           d.setMonth(d.getMonth() - monthLength);
 
