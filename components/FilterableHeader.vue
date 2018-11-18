@@ -1,45 +1,42 @@
 <template>
   <div class="currency-container">
     <div class="currency">
+      <div class="selectCurrencyTitle">Base Currency</div>
+      <div class="selectCurrency">
+        <div
+          :class="{ 'is-active': base === 'USD'}"
+          class="selectCurrencyItem"
+          title="USD"
+          @click="onBaseChange('USD')">USD
+        </div>
+        <div
+          :class="{ 'is-active': base === 'ETH'}"
+          class="selectCurrencyItem"
+          title="ETH"
+          @click="onBaseChange('ETH')">ETH
+        </div>
+      </div>
+    </div>
+    <div class="currency">
       <div class="selectCurrencyTitle">Platform type</div>
       <div class="selectCurrency">
         <div
           :class="{ 'is-active': platform === 'ETH' }"
           class="selectCurrencyItem"
+          title="ETH"
           @click="onFilter('platform', 'Ethereum')">ETH
         </div>
         <div
           :class="{ 'is-active': platform === 'NEO'}"
           class="selectCurrencyItem"
+          title="NEO"
           @click="onFilter('platform', 'NEO')">NEO
         </div>
         <div
           :class="{ 'is-active': platform === 'OTHER'}"
           class="selectCurrencyItem"
+          title="OTHER"
           @click="onFilter('platform', 'OTHER')">OTHER
-        </div>
-      </div>
-    </div>
-    <div class="currency">
-      <div class="selectCurrencyTitle">Date</div>
-      <div class="selectCurrency">
-        <div
-          :class="{ 'is-active': dateFilter === 1 }"
-          class="selectCurrencyItem mobile-small"
-          @click="onFilter('date', 1)">
-          Last 1M
-        </div>
-        <div
-          :class="{ 'is-active': dateFilter === 3 }"
-          class="selectCurrencyItem mobile-small"
-          @click="onFilter('date', 3)">
-          Last 3M
-        </div>
-        <div
-          :class="{ 'is-active': dateFilter === 12 }"
-          class="selectCurrencyItem mobile-small"
-          @click="onFilter('date', 12)">
-          Last 1Y
         </div>
       </div>
     </div>
@@ -49,30 +46,44 @@
         <div
           :class="{ 'is-active': flip === 'FLIP'}"
           class="selectCurrencyItem"
+          title="FLIP"
           @click="onFilter('flip', 'FLIP')">FLIP
         </div>
         <div
           :class="{ 'is-active': flip === 'FLOP' }"
           class="selectCurrencyItem"
+          title="FLOP"
           @click="onFilter('flip', 'FLOP')">FLOP
         </div>
       </div>
     </div>
     <div class="currency">
-      <div class="selectCurrencyTitle">Base Currency</div>
+      <div class="selectCurrencyTitle">Date</div>
       <div class="selectCurrency">
         <div
-          :class="{ 'is-active': base === 'USD'}"
-          class="selectCurrencyItem"
-          @click="onBaseChange('USD')">USD
+          :class="{ 'is-active': dateFilter === 1 }"
+          class="selectCurrencyItem mobile-small"
+          title="Last 1M"
+          @click="onFilter('date', 1)">
+          Last 1M
         </div>
         <div
-          :class="{ 'is-active': base === 'ETH'}"
-          class="selectCurrencyItem"
-          @click="onBaseChange('ETH')">ETH
+          :class="{ 'is-active': dateFilter === 3 }"
+          class="selectCurrencyItem mobile-small"
+          title="Last 3M"
+          @click="onFilter('date', 3)">
+          Last 3M
+        </div>
+        <div
+          :class="{ 'is-active': dateFilter === 12 }"
+          class="selectCurrencyItem mobile-small"
+          title="Last 1Y"
+          @click="onFilter('date', 12)">
+          Last 1Y
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -111,7 +122,7 @@ export default {
 <style scoped lang="scss">
 .currency-container {
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   flex-direction: row;
 
   @media screen and (max-width: 767px) {
@@ -126,7 +137,7 @@ export default {
 }
 
 .currency {
-  margin-left: 20px;
+  margin-left: 30px;
 
   .mobile-filter & {
     margin-right: 2px;
@@ -144,48 +155,63 @@ export default {
   }
 
   .selectCurrencyTitle {
-    color: #3251ed;
-    margin: 2px 0;
-    font-size: 8px;
-    text-align: right;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    font-size: 15px;
+    line-height: 1.33;
+    color: #8a8a8a;
+    margin-bottom: 10px;
 
     .mobile-filter & {
       text-align: left;
     }
   }
   .selectCurrency {
-    border: 1px solid #7a9cea;
     display: flex;
-    border-radius: 3px;
 
     .selectCurrencyItem {
-      flex: auto;
-      color: #5f7ebd;
-      display: flex;
-      padding: 3px 10px;
-      font-size: 11px;
-      font-weight: 400;
-      align-items: center;
-      border-right: 1px solid #7a9cea;
+      font-size: 15px;
+      color: #8a8a8a;
       cursor: pointer;
-      user-select: none;
+      display: inline-block;
+      min-width: 32px;
+      text-align: center;
+      text-transform: uppercase;
+
+      &:first-child {
+        &:before {
+          display: none;
+        }
+      }
+
+      &:before {
+        content: '/';
+        padding: 0 3px;
+        pointer-events: none;
+        color: #8a8a8a;
+        font-weight: 400;
+      }
+
+      &:after {
+        color: #8a8a8a;
+        display: block;
+        content: attr(title);
+        font-weight: 600;
+        height: 0;
+        overflow: hidden;
+        visibility: hidden;
+      }
 
       .mobile-filter & {
         &.mobile-small {
           padding: 3px 8px;
         }
       }
-
-      &.is-active,
       &:hover {
-        color: #fff;
-        background: #7a9cea;
+        color: #3fa7a8;
       }
 
-      &:last-child {
-        border-right: none;
+      &.is-active {
+        font-weight: 600;
+        color: #3fa7a8;
       }
     }
   }

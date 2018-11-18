@@ -3,14 +3,56 @@
     :class="{ 'sidebar-open': sidebarOpen }" 
     class="sidebar">
     <div class="navigation">
-      <div class="logo">
-        <img 
-          src="/logo.png" 
-          alt="Logo" 
+      <!--<div class="logo">
+        <img
+          src="/logo.png"
+          alt="Logo"
           class="logo-img">
+      </div>-->
+
+      <div class="site-navigation">
+        <ul class="nav-wrapper">
+          <li class="nav-item">
+            <nuxt-link
+              to="/"
+              class="nav-link"
+              exact
+              @click.native="navigate()">
+              <img
+                src="~/assets/icons/home.svg"
+                class="nav-icon"
+                alt="Home"
+                title="Home">
+            </nuxt-link>
+          </li>
+          <li class="nav-item">
+            <nuxt-link
+              to="/about"
+              class="nav-link"
+              @click.native="navigate()" >
+              <img
+                src="~/assets/icons/calendar.svg"
+                class="nav-icon"
+                alt="Home"
+                title="Home">
+            </nuxt-link>
+          </li>
+          <!--<li class="nav-item">
+            <nuxt-link
+              to="/"
+              class="nav-link"
+              @click.native="navigate()" >
+              <img
+                src="~/assets/icons/graph.svg"
+                class="nav-icon"
+                alt="Home"
+                title="Home">
+            </nuxt-link>
+          </li>-->
+        </ul>
       </div>
 
-      <div class="mobile-filter">
+      <!--<div class="mobile-filter">
         <h3 class="sidebar-title">Filter</h3>
         <filterable-header 
           :base="base" 
@@ -19,10 +61,10 @@
           :flip="flip" 
           @onFilter="onFilter($event)" 
           @onBaseChange="onBaseChange($event)"/>
-      </div>
-      <div class="site-navigation"/>
-      <h3 class="sidebar-title">Stats</h3>
-      <ul class="sidebar-nav">
+      </div>-->
+      <!--<div class="site-navigation"/>-->
+      <!--<h3 class="sidebar-title">Stats</h3>-->
+      <!--<ul class="sidebar-nav">
         <li class="nav-item">
           <nuxt-link 
             to="/" 
@@ -48,7 +90,7 @@
             class="nav-link" 
             @click.native="navigate()">About</nuxt-link>
         </li>
-      </ul>
+      </ul>-->
     </div>
   </div>
 
@@ -124,10 +166,10 @@ export default {
     width: 100%;
   }
 }
+
 .sidebar {
-  background-color: #f2f4f9;
+  background-color: #ffffff;
   //background: linear-gradient(0deg,#4464fc,#0dcaf2);
-  color: #293157;
   left: 0;
   position: fixed;
   overflow-y: auto;
@@ -135,9 +177,9 @@ export default {
   bottom: 0;
   z-index: 20;
   -webkit-overflow-scrolling: touch;
-  width: 200px;
+  width: 95px;
   box-shadow: 1px 0 10px rgba(197, 198, 203, 0.5);
-  transform: translateX(-200px);
+  transform: translateX(-95px);
   transition: transform ease 0.2s;
 
   &.sidebar-open {
@@ -178,6 +220,33 @@ export default {
   margin-bottom: 15px;
   @media screen and (min-width: 768px) {
     display: none !important;
+  }
+}
+
+.site-navigation {
+}
+
+.nav-wrapper {
+  list-style-type: none;
+  margin-bottom: 0;
+  position: relative;
+  .nav-item {
+    .nav-link {
+      display: block;
+      padding: 25px 0;
+      text-align: center;
+      position: relative;
+      margin-bottom: 0;
+      border-left: 7px solid transparent;
+
+      &.nuxt-link-active {
+        border-left: 7px solid #3fa7a8;
+      }
+
+      .nav-icon {
+        width: 30px;
+      }
+    }
   }
 }
 </style>

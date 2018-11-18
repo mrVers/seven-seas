@@ -1,7 +1,7 @@
 <template>
 
   <div class="table-header">
-    <!--<div class="th th-logo"></div>-->
+    <div class="th th-logo"/>
     <div 
       :class="{ 'th-active': sortKey === 'name' }" 
       class="th th-name">
@@ -14,7 +14,7 @@
         <span class="label">Name</span>
       </div>
     </div>
-    <div 
+    <!--<div
       :class="{ 'th-active': sortKey === 'platform' }" 
       class="th th-platform">
       <div 
@@ -25,8 +25,8 @@
           class="sort-order"/>
         <span class="label">Platform</span>
       </div>
-    </div>
-    <div 
+    </div>-->
+    <!--<div
       :class="{ 'th-active': sortKey === 'ico_started' }" 
       class="th th-date">
       <div 
@@ -37,8 +37,8 @@
           class="sort-order"/>
         <span class="label">ICO Date</span>
       </div>
-    </div>
-    <div 
+    </div>-->
+    <!--<div
       :class="{ 'th-active': sortKey === 'ico_price' }" 
       class="th">
       <div 
@@ -49,7 +49,7 @@
           class="sort-order"/>
         <span class="label">ICO Price</span>
       </div>
-    </div>
+    </div>-->
     <div 
       :class="{ 'th-active': (sortKey === 'price_usd' || sortKey === 'eth_price') }" 
       class="th">
@@ -62,7 +62,7 @@
         <span class="label">Curr. Price</span>
       </div>
     </div>
-    <div 
+    <!--<div
       :class="{ 'th-active': (sortKey === 'roi' || sortKey === 'eth_roi') }" 
       class="th th-primary">
       <div 
@@ -73,8 +73,7 @@
           class="sort-order"/>
         <span class="label">ROI since ICO</span>
       </div>
-
-    </div>
+    </div>-->
     <div 
       :class="{ 'th-active': sortKey === 'percent_change_1h' }" 
       class="th th-primary">
@@ -110,6 +109,9 @@
           class="sort-order"/>
         <span class="label">Change 7D</span>
       </div>
+    </div>
+    <div class="th th-primary">
+      Graph (last 24h)
     </div>
   </div>
 </template>
@@ -155,9 +157,9 @@ export default {
 .table-header {
   display: flex;
   width: 210%;
-  flex: 0 0 30px;
+  // flex: 0 0 30px;
   min-height: 20px;
-  margin: 0 15px;
+  margin: 20px 0px;
 
   @media screen and (min-width: 768px) {
     width: auto;
@@ -167,14 +169,13 @@ export default {
 .th {
   flex-grow: 1;
   width: 100%;
-  color: #3251ed;
-  font-size: 11px;
-  text-transform: uppercase;
-  text-align: right;
+  text-align: left;
   position: relative;
   margin: 0 10px;
   order: 1;
   cursor: pointer;
+  font-size: 16px;
+  color: #ababab;
 
   .sort-order {
     display: none;
@@ -182,7 +183,7 @@ export default {
 
   .outer-label {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     user-select: none;
     .label {
       user-select: none;
@@ -221,7 +222,7 @@ export default {
 }
 
 .th-logo {
-  width: 60%;
+  width: 30%;
   order: 0;
 }
 

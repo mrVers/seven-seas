@@ -4,7 +4,7 @@ const createStore = () => {
   return new Vuex.Store({
     state: {
       icoData: [],
-      sidebarOpen: false
+      sidebarOpen: true
     },
     mutations: {
       add(state, icos) {

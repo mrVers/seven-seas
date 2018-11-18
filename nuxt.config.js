@@ -51,8 +51,8 @@ module.exports = {
    */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL: 'https://example_restapi',
-    credentials: true,
+    baseURL: 'http://api.blackhive.si',
+    credentials: false,
     proxy: false,
     debug: true,
     retry: {
@@ -60,7 +60,7 @@ module.exports = {
     },
     requestInterceptor: (config, { store }) => {
       if (store.state.token) {
-        config.headers.common['Authorization'] = `JWT ${store.state.token}`
+        config.headers.common['Authorization'] = `JWT ${store.state.token}`;
       }
       return config;
     },

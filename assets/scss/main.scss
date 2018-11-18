@@ -9,9 +9,8 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
-  background-color: #fdfdfd;
-  color: #525252;
-  letter-spacing: 0.5px;
+  background-color: #f5f6fa;
+  color: #707070;
   margin: 0;
 }
 
@@ -51,13 +50,6 @@ html, body {
 .button--grey:hover {
   color: #fff;
   background-color: #35495e;
-}
-
-footer
-{
-  padding: 20px;
-  text-align: center;
-  border-top: 1px solid #ddd;
 }
 
 a, a:hover, a:focus, a:visited
@@ -227,17 +219,17 @@ span.right {
 
 .table-body {
   width: 210%;
-  margin: 0 15px;
+  margin: 0 0px;
   display: flex;
   position: relative;
   flex-grow: 2;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  //overflow-y: scroll;
+  //overflow-x: hidden;
   flex-direction: column;
 
   @media screen and (min-width: 768px) {
     width: auto;
-    overflow: auto;
+    //overflow: auto;
   }
 }
 
@@ -315,4 +307,28 @@ span.right {
   @media screen and (max-width: 767px) {
     flex-flow: column;
   }
+}
+
+.top-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 106px;
+
+  &.background {
+    background-image: url('/header-bg.jpg');
+    background-size: cover;
+  }
+
+  .top-logo {
+    margin: 0 30px;
+    max-width: 200px;
+    .logo-img {
+      width: 100%;
+    }
+  }
+}
+
+.app-inner {
+  margin-left: 95px;
 }

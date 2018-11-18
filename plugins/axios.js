@@ -1,7 +1,5 @@
 export default function({ $axios, redirect }) {
-  $axios.defaults.baseURL = 'https://example_restapi';
-
-  console.log($axios);
+  // $axios.defaults.baseURL = 'https://example_restapi';
 
   $axios.onRequest(config => {
     console.log('Making request to ' + config.url);
@@ -10,7 +8,7 @@ export default function({ $axios, redirect }) {
   $axios.onError(error => {
     const code = parseInt(error.response && error.response.status);
     if (code === 400) {
-      redirect('/400');
+      redirect('/404');
     }
   });
 }

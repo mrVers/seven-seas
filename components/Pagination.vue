@@ -4,12 +4,12 @@
       :class="{'disabled': pageNumber === 0 }" 
       class="pagination-link prev-page" 
       @click="switchPage('prev')">
-      ← Previous {{ perPage }}
+      Previous {{ perPage }}
     </div>
     <div
       :class="{'disabled': itemsCount < (pageNumber + 1) * perPage }"
       class="pagination-link next-page"
-      @click="switchPage('next')">Next {{ perPage }} →
+      @click="switchPage('next')">Next {{ perPage }}
     </div>
   </div>
 </template>
@@ -42,16 +42,21 @@ export default {
 <style scoped lang="scss">
 .pagination {
   display: flex;
-  align-self: flex-end;
+  align-self: flex-start;
   flex-direction: row;
-  padding: 10px;
+  margin-top: 28px;
   user-select: none;
 
   .pagination-link {
     cursor: pointer;
-    padding: 0 10px;
     user-select: none;
+    opacity: 0.67;
+    font-size: 16px;
+    font-weight: 600;
 
+    &:last-child {
+      margin-left: 20px;
+    }
     &.disabled {
       opacity: 0.5;
       pointer-events: none;

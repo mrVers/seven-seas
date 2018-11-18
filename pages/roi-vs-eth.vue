@@ -234,13 +234,13 @@ export default {
     filterByDate(monthLength) {
       if (monthLength) {
         this.dateFilter = monthLength;
-        this.icos = _.filter(this.icos, ico => {
-          let date = new Date(ico.ico_started);
-          let d = new Date();
-          d.setMonth(d.getMonth() - monthLength);
-
-          return +date > +d;
-        });
+        // this.icos = _.filter(this.icos, ico => {
+        //   let date = new Date(ico.ico_started);
+        //   let d = new Date();
+        //   d.setMonth(d.getMonth() - monthLength);
+        //
+        //   return +date > +d;
+        // });
       }
     },
 
