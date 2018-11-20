@@ -3,10 +3,15 @@
     <div class="td td-logo">
       <img
         :src="coin.logo"
-        alt="Etheroll"
+        :alt="coin.name"
+        :title="coin.name"
         class="logo-0-68">
     </div>
-    <div class="td td-name">{{ coin.name }}</div>
+    <div
+      :title="coin.symbol"
+      class="td td-name">
+      {{ coin.name }}
+    </div>
     <!--<div class="td td-platform"><span
       v-if="coin.finance.platform !== null" 
       class="platform-tag">{{ coin.finance.platform || 'N/A' }}</span></div>
@@ -18,8 +23,8 @@
     </div>-->
     <div class="td td-price">
       <span 
-        v-if="coin.finance.price_usd && base === 'USD'" 
-        class="dollar">$</span>{{ (base === 'USD' ? coin.finance.price_usd : coin.finance.eth_price) || '--' }}
+        v-if="coin.cmc.price_usd && base === 'USD'"
+        class="dollar">$</span>{{ (base === 'USD' ? coin.cmc.price_usd : coin.cmc.price_eth) || '--' }}
     </div>
     <!--<div
       v-if="(base === 'USD' ? coin.finance.roi : coin.finance.eth_roi)" 
@@ -42,7 +47,7 @@
       :class="flipOrFlop(coin.cmc.percent_change_7d)" 
       class="td td-primary"><span><span>{{ coin.cmc.percent_change_7d || 0 }}%</span></span></div>
     <div
-      class="td td-primary">&nbsp;</div>
+      class="td td-graph">&nbsp;</div>
   </div>
 </template>
 
@@ -133,10 +138,14 @@ export default {
 
 .td-price {
   //color: hsl(220, 5%, 76%);
-  color: #a4a6ab;
-  font-size: 13px;
-  font-weight: 900;
+  /*color: #a4a6ab;*/
+  /*font-size: 13px;*/
+  /*font-weight: 900;*/
   position: relative;
+  opacity: 0.8;
+  font-size: 15px;
+  text-align: left;
+  color: #707070;
   &.tooltip-trigger {
     overflow: visible;
   }
@@ -147,6 +156,7 @@ export default {
   order: 0;
   position: relative;
   overflow: visible;
+  font-size: 15px;
 
   @media screen and (max-width: 767px) {
     overflow: hidden;
@@ -175,11 +185,30 @@ export default {
 }
 
 .td-primary {
-  color: #55c58e;
+  // color: #55c58e;
   font-size: 15px;
   // font-weight: 900;
   width: 140%;
   // order: 0
+  color: #707070;
+  opacity: 0.8;
+
+  &:before {
+    width: 0;
+    height: 0;
+    border-bottom: solid 5px #55c58e;
+    border-left: solid 5px transparent;
+    border-right: solid 5px transparent;
+    content: '';
+    position: relative;
+    vertical-align: middle;
+    display: inline-flex;
+    margin: 5px;
+  }
+}
+
+.td-graph {
+  width: 140%;
 }
 
 .td-roi {
@@ -189,7 +218,23 @@ export default {
 }
 
 .td-primary-negative {
-  color: hsl(15, 75%, 60%);
+  // color: hsl(15, 75%, 60%);
+  color: #707070;
+  opacity: 0.8;
+
+  &:before {
+    width: 0;
+    height: 0;
+    border-top: solid 5px hsl(15, 75%, 60%);
+    border-left: solid 5px transparent;
+    border-right: solid 5px transparent;
+    content: '';
+    position: relative;
+    vertical-align: middle;
+    display: inline-flex;
+    margin: 5px;
+    border-bottom: 0;
+  }
 }
 
 .td-primary-positive {

@@ -40,7 +40,7 @@
         </div>
       </div>
     </div>
-    <div class="currency">
+    <!--<div class="currency">
       <div class="selectCurrencyTitle">ROI</div>
       <div class="selectCurrency">
         <div
@@ -56,8 +56,8 @@
           @click="onFilter('flip', 'FLOP')">FLOP
         </div>
       </div>
-    </div>
-    <div class="currency">
+    </div>-->
+    <!--<div class="currency">
       <div class="selectCurrencyTitle">Date</div>
       <div class="selectCurrency">
         <div
@@ -82,7 +82,7 @@
           Last 1Y
         </div>
       </div>
-    </div>
+    </div>-->
 
   </div>
 </template>
@@ -124,6 +124,8 @@ export default {
   display: flex;
   align-items: flex-start;
   flex-direction: row;
+  flex: 1;
+  margin-left: 30px;
 
   @media screen and (max-width: 767px) {
     display: none;

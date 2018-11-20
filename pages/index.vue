@@ -75,8 +75,23 @@
             <section class="sidebar-block top-block">
               <h1>Gainers</h1>
               <div class="sidebar-block-inner">
-                <ul>
-                  <li>Iconomi</li>
+                <ul class="sidebar-coins">
+                  <li
+                    v-for="coin in limitBy(gainers, 8)"
+                    :key="coin"
+                    class="sidebar-coin">
+                    <div class="sidebar-coin-title">
+                      {{ coin.name }}
+                    </div>
+                    <div class="sidebar-coin-meta">
+                      <div class="sidebar-coin-meta-price">
+                        {{ coin.price_usd }}
+                      </div>
+                      <div class="sidebar-coin-meta-change">
+                        {{ coin.percent_change_24h }}%
+                      </div>
+                    </div>
+                  </li>
                 </ul>
               </div>
             </section>
@@ -85,8 +100,23 @@
             <section class="sidebar-block">
               <h1>Losers</h1>
               <div class="sidebar-block-inner">
-                <ul>
-                  <li>Iconomi</li>
+                <ul class="sidebar-coins">
+                  <li
+                    v-for="coin in limitBy(losers, 8)"
+                    :key="coin"
+                    class="sidebar-coin">
+                    <div class="sidebar-coin-title">
+                      {{ coin.name }}
+                    </div>
+                    <div class="sidebar-coin-meta">
+                      <div class="sidebar-coin-meta-price">
+                        {{ coin.price_usd }}
+                      </div>
+                      <div class="sidebar-coin-meta-change">
+                        {{ coin.percent_change_24h }}%
+                      </div>
+                    </div>
+                  </li>
                 </ul>
               </div>
             </section>
@@ -187,17 +217,46 @@
     margin-top: 64px;
   }
   h1 {
-    width: 358px;
-    height: 49px;
-    font-family: OpenSans;
-    font-size: 26px;
-    font-weight: bold;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 1.38;
-    letter-spacing: normal;
+    font-size: 22px;
+    font-weight: 600;
     text-align: left;
     color: #707070;
+  }
+}
+
+.sidebar-block-inner {
+  .sidebar-coins {
+    .sidebar-coin {
+      display: inline-flex;
+      justify-content: space-between;
+      width: 100%;
+      .sidebar-coin-title {
+        font-size: 15px;
+        text-align: left;
+        color: #363636;
+        min-width: 84px;
+        word-break: break-all;
+      }
+
+      .sidebar-coin-meta {
+        display: flex;
+        justify-content: flex-end;
+        .sidebar-coin-meta-price {
+          opacity: 0.68;
+          font-size: 15px;
+          text-align: right;
+          color: #363636;
+          margin-left: 15px;
+        }
+        .sidebar-coin-meta-change {
+          margin-left: 15px;
+          font-size: 15px;
+          text-align: right;
+          color: #3fa7a8;
+          min-width: 50px;
+        }
+      }
+    }
   }
 }
 </style>
@@ -227,6 +286,8 @@ export default {
   data: () => ({
     icos: [],
     copy: [],
+    losers: [],
+    gainers: [],
     name: 'yolo',
     description: 'heyyy',
     search: '',
@@ -273,6 +334,33 @@ export default {
     } else {
       this.icos = this.$store.state.icoData;
       this.loaded = true;
+    }
+
+    if (!this.$store.state.losers.length || !this.$store.state.gainers.length) {
+      this.$axios
+        .get(`/loosers/`)
+        .then(res => res.data)
+        .then(coinData => {
+          this.$store.commit('populateLosers', coinData);
+          this.losers = this.$store.state.losers;
+        })
+        .catch(err => {
+          console.log('Error get /icostats/');
+        });
+      this.$axios
+        .get(`/gainers/`)
+        .then(res => res.data)
+        .then(coinData => {
+          this.$store.commit('populateGainers', coinData);
+          this.gainers = this.$store.state.gainers;
+          console.log(this.gainers);
+        })
+        .catch(err => {
+          console.log('Error get /icostats/');
+        });
+    } else {
+      this.gainers = this.$store.state.gainers;
+      this.losers = this.$store.state.losers;
     }
   },
   methods: {
