@@ -139,8 +139,6 @@ export default {
     }
   },
   created() {
-    console.log(this);
-    this.$axios.$get('http://icanhazip.com').then(res => console.log(res));
     // if (!this.$store.state.icoData.length) {
     //   axios
     //     .get(`/ico/`)

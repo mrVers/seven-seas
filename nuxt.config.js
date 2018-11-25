@@ -65,7 +65,7 @@ module.exports = {
       return config;
     },
     onRequest: config => {
-      console.log('Making request to ' + config.url);
+      // console.log('Making request to ' + config.url);
     }
     // requestInterceptor: (config, { store }) => {
     //   config.headers.common['Authorization'] = '';

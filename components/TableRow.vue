@@ -12,6 +12,16 @@
       class="td td-name">
       {{ coin.name }}
     </div>
+    <div
+      class="td td-price">
+      <span v-if="coin.cmc.market_cap_usd">{{ coin.cmc.market_cap_usd | currency('$', 0) }}</span>
+      <span v-else> -- </span>
+    </div>
+    <div
+      class="td td-price">
+      <span v-if="coin.cmc['24h_volume_usd']">{{ coin.cmc['24h_volume_usd'] | currency('$', 0) }}</span>
+      <span v-else> -- </span>
+    </div>
     <!--<div class="td td-platform"><span
       v-if="coin.finance.platform !== null" 
       class="platform-tag">{{ coin.finance.platform || 'N/A' }}</span></div>
@@ -22,9 +32,13 @@
         class="dollar">$</span>{{ (base === 'USD' ? coin.finance.ico_price : coin.finance.ico_eth_price) || '--' }}
     </div>-->
     <div class="td td-price">
-      <span 
-        v-if="coin.cmc.price_usd && base === 'USD'"
-        class="dollar">$</span>{{ (base === 'USD' ? coin.cmc.price_usd : coin.cmc.price_eth) || '--' }}
+      <span v-if="coin.cmc.price_usd && base === 'USD'">
+        {{ coin.cmc.price_usd | currency('$', 4) }}
+      </span>
+      <span v-else-if="coin.cmc.price_eth && base === 'ETH'">
+        {{ coin.cmc.price_eth | currency('Ξ', 6) }}
+      </span>
+      <span v-else> -- </span>
     </div>
     <!--<div
       v-if="(base === 'USD' ? coin.finance.roi : coin.finance.eth_roi)" 
@@ -46,8 +60,8 @@
     <div 
       :class="flipOrFlop(coin.cmc.percent_change_7d)" 
       class="td td-primary"><span><span>{{ coin.cmc.percent_change_7d || 0 }}%</span></span></div>
-    <div
-      class="td td-graph">&nbsp;</div>
+      <!--<div
+      class="td td-graph">&nbsp;</div>-->
   </div>
 </template>
 
@@ -157,6 +171,7 @@ export default {
   position: relative;
   overflow: visible;
   font-size: 15px;
+  word-break: break-all;
 
   @media screen and (max-width: 767px) {
     overflow: hidden;
@@ -225,7 +240,7 @@ export default {
   &:before {
     width: 0;
     height: 0;
-    border-top: solid 5px hsl(15, 75%, 60%);
+    border-top: solid 5px #e6734d;
     border-left: solid 5px transparent;
     border-right: solid 5px transparent;
     content: '';

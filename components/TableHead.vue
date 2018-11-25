@@ -14,6 +14,16 @@
         <span class="label">Name</span>
       </div>
     </div>
+    <div class="th">
+      <div class="outer-label">
+        <span class="label">Market cap</span>
+      </div>
+    </div>
+    <div class="th">
+      <div class="outer-label">
+        <span class="label">24h volume</span>
+      </div>
+    </div>
     <!--<div
       :class="{ 'th-active': sortKey === 'platform' }" 
       class="th th-platform">
@@ -110,9 +120,9 @@
         <span class="label">Change 7D</span>
       </div>
     </div>
-    <div class="th th-primary">
+    <!--<div class="th th-primary">
       Graph (last 24h)
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -139,7 +149,6 @@ export default {
   }),
   methods: {
     sortBy(key) {
-      console.log('child key:' + key);
       let sortOrder;
       if (key === this.sortKey) {
         sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';

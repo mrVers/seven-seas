@@ -22,7 +22,7 @@
       <div class="filterable-header-wrapper">
         <div class="top-market-stats">
           <p>Cryptocurrencies: {{ icos.length || 0 }}</p>
-          <p>Markets: ALL</p>
+          <!--<p>Markets: ALL</p>-->
         </div>
         <section class="row">
           <div class="filterable-header-data nine columns">
@@ -73,22 +73,28 @@
           </div>
           <div class="three columns">
             <section class="sidebar-block top-block">
-              <h1>Gainers</h1>
+              <div class="sidebar-header">
+                <h1>Gainers</h1>
+                <div class="sidebar-header-appendix">
+                  <div>Price</div>
+                  <div>%(24h)</div>
+                </div>
+              </div>
               <div class="sidebar-block-inner">
                 <ul class="sidebar-coins">
                   <li
                     v-for="coin in limitBy(gainers, 8)"
-                    :key="coin"
+                    :key="coin.name"
                     class="sidebar-coin">
                     <div class="sidebar-coin-title">
                       {{ coin.name }}
                     </div>
                     <div class="sidebar-coin-meta">
                       <div class="sidebar-coin-meta-price">
-                        {{ coin.price_usd }}
+                        {{ coin.price_usd | currency('$', 5) }}
                       </div>
                       <div class="sidebar-coin-meta-change">
-                        {{ coin.percent_change_24h }}%
+                        {{ coin.percent_change_24h | currency('%', 1, { symbolOnLeft: false }) }}
                       </div>
                     </div>
                   </li>
@@ -98,22 +104,30 @@
           </div>
           <div class="three columns">
             <section class="sidebar-block">
-              <h1>Losers</h1>
+              <div class="sidebar-header">
+                <h1>Losers</h1>
+                <div class="sidebar-header-appendix">
+                  <div>Price</div>
+                  <div>%(24h)</div>
+                </div>
+              </div>
               <div class="sidebar-block-inner">
                 <ul class="sidebar-coins">
                   <li
                     v-for="coin in limitBy(losers, 8)"
-                    :key="coin"
+                    :key="coin.name"
                     class="sidebar-coin">
                     <div class="sidebar-coin-title">
                       {{ coin.name }}
                     </div>
                     <div class="sidebar-coin-meta">
                       <div class="sidebar-coin-meta-price">
-                        {{ coin.price_usd }}
+                        {{ coin.price_usd | currency('$', 5) }}
                       </div>
-                      <div class="sidebar-coin-meta-change">
-                        {{ coin.percent_change_24h }}%
+                      <div
+                        :class="{ negative: coin.percent_change_24h < 0 }"
+                        class="sidebar-coin-meta-change">
+                        {{ coin.percent_change_24h | currency('%', 1, { symbolOnLeft: false }) }}
                       </div>
                     </div>
                   </li>
@@ -213,6 +227,24 @@
   padding: 30px;
   margin-bottom: 20px;
 
+  .sidebar-header {
+    display: flex;
+    margin-bottom: 15px;
+    align-items: baseline;
+
+    .sidebar-header-appendix {
+      display: flex;
+      margin-left: auto;
+      > * {
+        font-size: 13px;
+        text-align: right;
+        color: #363636;
+        margin-left: 15px;
+        min-width: 50px;
+      }
+    }
+  }
+
   &.top-block {
     margin-top: 64px;
   }
@@ -221,6 +253,7 @@
     font-weight: 600;
     text-align: left;
     color: #707070;
+    margin-bottom: 0;
   }
 }
 
@@ -254,6 +287,10 @@
           text-align: right;
           color: #3fa7a8;
           min-width: 50px;
+
+          &.negative {
+            color: #e6734d;
+          }
         }
       }
     }
@@ -353,7 +390,6 @@ export default {
         .then(coinData => {
           this.$store.commit('populateGainers', coinData);
           this.gainers = this.$store.state.gainers;
-          console.log(this.gainers);
         })
         .catch(err => {
           console.log('Error get /icostats/');

@@ -2,7 +2,7 @@ export default function({ $axios, redirect }) {
   // $axios.defaults.baseURL = 'https://example_restapi';
 
   $axios.onRequest(config => {
-    console.log('Making request to ' + config.url);
+    // console.log('Making request to ' + config.url);
   });
 
   $axios.onError(error => {
