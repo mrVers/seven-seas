@@ -101,8 +101,6 @@
                 </ul>
               </div>
             </section>
-          </div>
-          <div class="three columns">
             <section class="sidebar-block">
               <div class="sidebar-header">
                 <h1>Losers</h1>

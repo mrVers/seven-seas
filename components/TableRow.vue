@@ -1,68 +1,72 @@
 <template>
-  <div class="tr">
-    <div class="td td-logo">
-      <img
-        :src="coin.logo"
-        :alt="coin.name"
-        :title="coin.name"
-        class="logo-0-68">
-    </div>
-    <div
-      :title="coin.symbol"
-      class="td td-name">
-      {{ coin.name }}
-    </div>
-    <div
-      class="td td-price">
-      <span v-if="coin.cmc.market_cap_usd">{{ coin.cmc.market_cap_usd | currency('$', 0) }}</span>
-      <span v-else> -- </span>
-    </div>
-    <div
-      class="td td-price">
-      <span v-if="coin.cmc['24h_volume_usd']">{{ coin.cmc['24h_volume_usd'] | currency('$', 0) }}</span>
-      <span v-else> -- </span>
-    </div>
-    <!--<div class="td td-platform"><span
-      v-if="coin.finance.platform !== null" 
-      class="platform-tag">{{ coin.finance.platform || 'N/A' }}</span></div>
-    <div class="td td-date">{{ coin.dates.icoStart.split(' ')[0] || '--' }}</div>-->
-    <!--<div class="td td-price">
-      <span 
-        v-if="coin.finance.ico_price && base === 'USD'" 
-        class="dollar">$</span>{{ (base === 'USD' ? coin.finance.ico_price : coin.finance.ico_eth_price) || '--' }}
-    </div>-->
-    <div class="td td-price">
-      <span v-if="coin.cmc.price_usd && base === 'USD'">
-        {{ coin.cmc.price_usd | currency('$', 4) }}
-      </span>
-      <span v-else-if="coin.cmc.price_eth && base === 'ETH'">
-        {{ coin.cmc.price_eth | currency('Ξ', 6) }}
-      </span>
-      <span v-else> -- </span>
-    </div>
-    <!--<div
-      v-if="(base === 'USD' ? coin.finance.roi : coin.finance.eth_roi)" 
-      :class="(base === 'USD' ? coin.finance.roi : coin.finance.eth_roi) > 0 ? 'td-primary-positive' : 'td-primary-negative'" 
-      class="td td-roi td-primary">
-      {{ base === 'USD' ? coin.finance.roi : coin.finance.eth_roi | currency('', 2) || '--' }}<span 
-        v-if="coin.finance.roi" 
-        class="percent">%</span>
-    </div>-->
-    <!--<div
-      v-else 
-      class="td td-roi td-primary td-NA">--</div>-->
-    <div 
-      :class="flipOrFlop(coin.cmc.percent_change_1h)" 
-      class="td td-primary">{{ coin.cmc.percent_change_1h || 0 }}%</div>
-    <div 
-      :class="flipOrFlop(coin.cmc.percent_change_24h)" 
-      class="td td-primary"><span><span>{{ coin.cmc.percent_change_24h || 0 }}%</span></span></div>
-    <div 
-      :class="flipOrFlop(coin.cmc.percent_change_7d)" 
-      class="td td-primary"><span><span>{{ coin.cmc.percent_change_7d || 0 }}%</span></span></div>
+  <nuxt-link
+    :to="{ name: 'project-id', params: { id: coin.id }}"
+    class="table-link">
+    <div class="tr">
+      <div class="td td-logo">
+        <img
+          :src="coin.logo"
+          :alt="coin.name"
+          :title="coin.name"
+          class="logo-0-68">
+      </div>
+      <div
+        :title="coin.symbol"
+        class="td td-name">
+        {{ coin.name }}
+      </div>
+      <div
+        class="td td-price">
+        <span v-if="coin.cmc.market_cap_usd">{{ coin.cmc.market_cap_usd | currency('$', 0) }}</span>
+        <span v-else> -- </span>
+      </div>
+      <div
+        class="td td-price">
+        <span v-if="coin.cmc['24h_volume_usd']">{{ coin.cmc['24h_volume_usd'] | currency('$', 0) }}</span>
+        <span v-else> -- </span>
+      </div>
+      <!--<div class="td td-platform"><span
+        v-if="coin.finance.platform !== null"
+        class="platform-tag">{{ coin.finance.platform || 'N/A' }}</span></div>
+      <div class="td td-date">{{ coin.dates.icoStart.split(' ')[0] || '--' }}</div>-->
+      <!--<div class="td td-price">
+        <span
+          v-if="coin.finance.ico_price && base === 'USD'"
+          class="dollar">$</span>{{ (base === 'USD' ? coin.finance.ico_price : coin.finance.ico_eth_price) || '--' }}
+      </div>-->
+      <div class="td td-price">
+        <span v-if="coin.cmc.price_usd && base === 'USD'">
+          {{ coin.cmc.price_usd | currency('$', 4) }}
+        </span>
+        <span v-else-if="coin.cmc.price_eth && base === 'ETH'">
+          {{ coin.cmc.price_eth | currency('Ξ', 6) }}
+        </span>
+        <span v-else> -- </span>
+      </div>
       <!--<div
-      class="td td-graph">&nbsp;</div>-->
-  </div>
+        v-if="(base === 'USD' ? coin.finance.roi : coin.finance.eth_roi)"
+        :class="(base === 'USD' ? coin.finance.roi : coin.finance.eth_roi) > 0 ? 'td-primary-positive' : 'td-primary-negative'"
+        class="td td-roi td-primary">
+        {{ base === 'USD' ? coin.finance.roi : coin.finance.eth_roi | currency('', 2) || '--' }}<span
+          v-if="coin.finance.roi"
+          class="percent">%</span>
+      </div>-->
+      <!--<div
+        v-else
+        class="td td-roi td-primary td-NA">--</div>-->
+      <div
+        :class="flipOrFlop(coin.cmc.percent_change_1h)"
+        class="td td-primary">{{ coin.cmc.percent_change_1h || 0 }}%</div>
+      <div
+        :class="flipOrFlop(coin.cmc.percent_change_24h)"
+        class="td td-primary"><span><span>{{ coin.cmc.percent_change_24h || 0 }}%</span></span></div>
+      <div
+        :class="flipOrFlop(coin.cmc.percent_change_7d)"
+        class="td td-primary"><span><span>{{ coin.cmc.percent_change_7d || 0 }}%</span></span></div>
+        <!--<div
+        class="td td-graph">&nbsp;</div>-->
+    </div>
+  </nuxt-link>
 </template>
 
 <script>
@@ -96,6 +100,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.table-link {
+  color: #707070;
+  text-decoration: none;
+}
 .tr {
   height: 60px;
   min-height: 60px;

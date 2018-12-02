@@ -332,3 +332,9 @@ span.right {
 .app-inner {
   margin-left: 95px;
 }
+
+@media (min-width: 550px) {
+  .column, .columns {
+    margin-left: 2%;
+  }
+}
