@@ -428,6 +428,8 @@ export default {
       // percent_change_1h
       // percent_change_24h
       // percent_change_7d
+      // market_cap_usd
+      // 24h_volume_usd
 
       if (key === 'roi') {
         if (this.base === 'ETH') {
@@ -439,7 +441,7 @@ export default {
         this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
       } else {
         this.sortKey = key;
-        this.sortOrder = 'asc';
+        this.sortOrder = 'desc';
       }
 
       // todo - update logic when usd vs eth base
@@ -454,7 +456,27 @@ export default {
           this.icos,
           [
             o => {
-              return o[this.sortKey] || '';
+              if (this.sortKey === 'name') {
+                if (o['name']) {
+                  return o['name'].toString().toLowerCase();
+                } else {
+                  return '';
+                }
+              }
+              if (
+                this.sortKey === 'percent_change_1h' ||
+                this.sortKey === 'percent_change_24h' ||
+                this.sortKey === 'percent_change_7d' ||
+                this.sortKey === 'price_usd' ||
+                this.sortKey === '24h_volume_usd' ||
+                this.sortKey === 'market_cap_usd'
+              ) {
+                if (o.cmc && o.cmc[this.sortKey]) {
+                  return o.cmc[this.sortKey];
+                } else {
+                  return '';
+                }
+              }
             }
           ],
           [this.sortOrder]

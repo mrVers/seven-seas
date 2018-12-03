@@ -14,13 +14,27 @@
         <span class="label">Name</span>
       </div>
     </div>
-    <div class="th">
-      <div class="outer-label">
+    <div
+      :class="{ 'th-active': sortKey === 'market_cap_usd' }"
+      class="th">
+      <div
+        class="outer-label"
+        @click="sortBy('market_cap_usd')">
+        <span
+          :class="sortOrder === 'asc' ? 'sort-asc' : 'sort-desc'"
+          class="sort-order"/>
         <span class="label">Market cap</span>
       </div>
     </div>
-    <div class="th">
-      <div class="outer-label">
+    <div
+      :class="{ 'th-active': sortKey === '24h_volume_usd' }"
+      class="th">
+      <div
+        class="outer-label"
+        @click="sortBy('24h_volume_usd')">
+        <span
+          :class="sortOrder === 'asc' ? 'sort-asc' : 'sort-desc'"
+          class="sort-order"/>
         <span class="label">24h volume</span>
       </div>
     </div>
@@ -208,7 +222,7 @@ export default {
       }
       .sort-order {
         align-self: start;
-        margin-top: 5px;
+        margin-top: 9px;
         margin-right: 5px;
         display: block;
         &.sort-asc {
