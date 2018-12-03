@@ -7,14 +7,15 @@ module.exports = {
    ** Headers of the page
    */
   head: {
-    title: 'OceanStats | Track ICO Performance',
+    title: 'OceanStats | Crypto Data and Insights',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
         hid: 'description',
         name: 'description',
-        content: 'Track and compare ICO performance over time.'
+        content:
+          'Reliable crypto data and insights fueled by collective intelligence.'
       }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]

@@ -26,7 +26,7 @@
         </div>
         <section class="row">
           <div class="filterable-header-data nine columns">
-            <h1 class="header-title">ICOs</h1>
+            <h1 class="header-title">Cryptoassets</h1>
             <filterable-header
               :base="base"
               :platform="platform"
@@ -247,7 +247,7 @@
     margin-top: 64px;
   }
   h1 {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 600;
     text-align: left;
     color: #707070;
@@ -257,16 +257,17 @@
 
 .sidebar-block-inner {
   .sidebar-coins {
+    margin-bottom: 0;
     .sidebar-coin {
       display: inline-flex;
       justify-content: space-between;
       width: 100%;
       .sidebar-coin-title {
-        font-size: 15px;
+        font-size: 14px;
         text-align: left;
         color: #363636;
         min-width: 84px;
-        word-break: break-all;
+        word-break: break-word;
       }
 
       .sidebar-coin-meta {

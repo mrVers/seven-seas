@@ -21,15 +21,15 @@
           </div>
           <div class="twelve columns">
             <div class="intro">
-              <div class="logo">
+              <!--<div class="logo">
                 <img
                   src="/logo.png"
                   alt="Logo"
                   class="logo-img">
-              </div>
+              </div>-->
 
-              <p><strong>Oceanstats.io</strong> is a nifty ICO performance tracker.</p>
-              <p>Brought to you by <strong><a href="https://www.oceanpool.io">Oceanpool.io</a></strong>, an inclusive ICO presale fundraising platform.</p>
+              <p style="margin-bottom: 1rem"><strong>Oceanstats.io</strong></p>
+              <p>Contact: <a href="mailto:hello@oceanstats.io">hello@oceanstats.io</a></p>
             </div>
           </div>
 
@@ -55,7 +55,7 @@
 
 
     </section>
-
+    <main-footer/>
   </main>
 </template>
 
@@ -66,6 +66,7 @@ import TableHead from '~/components/TableHead.vue';
 import Sidebar from '~/components/Sidebar.vue';
 import '~/plugins/vue2-filters';
 import '~/plugins/lodash';
+import MainFooter from '~/components/MainFooter.vue';
 
 export default {
   name: 'About',
@@ -73,7 +74,8 @@ export default {
     AppLogo,
     TableRow,
     TableHead,
-    Sidebar
+    Sidebar,
+    MainFooter
   },
   data: () => ({
     icos: [],
