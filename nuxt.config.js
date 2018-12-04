@@ -52,7 +52,7 @@ module.exports = {
    */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL: '//api.oceanstats.si',
+    baseURL: '//api.oceanstats.io',
     credentials: false,
     proxy: false,
     debug: true,
