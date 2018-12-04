@@ -355,7 +355,7 @@ export default {
   created() {
     if (!this.$store.state.icoData.length) {
       this.$axios
-        .get(`/shortico`)
+        .get(`/shortico/`)
         .then(res => res.data)
         .then(res => res)
         .then(icos => {
