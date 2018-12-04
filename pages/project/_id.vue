@@ -104,19 +104,25 @@
             v-if="ico.cmc && ico.cmc.percent_change_1h"
             class="header-data-item">
             <div class="header-data-item-title">Change 1h</div>
-            <div class="header-data-item-data">{{ coin.cmc.percent_change_1h || 0 }}%</div>
+            <div
+              :class="flipOrFlop(ico.cmc.percent_change_1h)"
+              class="header-data-item-data">{{ ico.cmc.percent_change_1h || 0 }}%</div>
           </div>
           <div
             v-if="ico.cmc && ico.cmc.percent_change_24h"
             class="header-data-item">
             <div class="header-data-item-title">Change 24h</div>
-            <div class="header-data-item-data">{{ coin.cmc.percent_change_24h || 0 }}%</div>
+            <div
+              :class="flipOrFlop(ico.cmc.percent_change_24h)"
+              class="header-data-item-data">{{ ico.cmc.percent_change_24h || 0 }}%</div>
           </div>
           <div
             v-if="ico.cmc && ico.cmc.percent_change_7d"
             class="header-data-item">
             <div class="header-data-item-title">Change 7d</div>
-            <div class="header-data-item-data">{{ coin.cmc.percent_change_7d || 0 }}%</div>
+            <div
+              :class="flipOrFlop(ico.cmc.percent_change_7d)"
+              class="header-data-item-data">{{ ico.cmc.percent_change_7d || 0 }}%</div>
           </div>
         </div>
       </div>
