@@ -52,7 +52,7 @@ module.exports = {
    */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL: 'http://api.blackhive.si',
+    baseURL: '//api.oceanstats.si',
     credentials: false,
     proxy: false,
     debug: true,
