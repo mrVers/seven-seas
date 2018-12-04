@@ -156,53 +156,63 @@
                   v-for="member in ico.team"
                   :key="member.url"
                   class="team-member">
-                  <div class="member-name member-item">{{ member.name }}</div>
-                  <div class="member-position member-item">{{ member.title }}</div>
-                  <div class="member-social member-item">
-                    <template
-                      v-for="social in member.socials">
-                      <a
-                        v-if="social.site === 'facebook'"
-                        :href="social.url"
-                        :key="social.site"
-                        target="_blank"
-                        class="social-link">
-                        <img src="~/assets/icons/facebook.svg">
-                      </a>
-                      <a
-                        v-if="social.site === 'github'"
-                        :href="social.url"
-                        :key="social.site"
-                        target="_blank"
-                        class="social-link">
-                        <img src="~/assets/icons/github.svg">
-                      </a>
-                      <a
-                        v-if="social.site === 'instagram'"
-                        :href="social.url"
-                        :key="social.site"
-                        target="_blank"
-                        class="social-link">
-                        <img src="~/assets/icons/instagram.svg">
-                      </a>
-                      <a
-                        v-if="social.site === 'medium'"
-                        :href="social.url"
-                        :key="social.site"
-                        target="_blank"
-                        class="social-link">
-                        <img src="~/assets/icons/medium.svg">
-                      </a>
-                      <a
-                        v-if="social.site === 'reddit'"
-                        :href="social.url"
-                        :key="social.site"
-                        target="_blank"
-                        class="social-link">
-                        <img src="~/assets/icons/reddit.svg">
-                      </a>
-                    </template>
-                  </div>
+                  <template v-if="member.group !== 'Advisors'">
+                    <div class="member-name member-item">{{ member.name }}</div>
+                    <div class="member-position member-item">{{ member.title }}</div>
+                    <div class="member-social member-item">
+                      <template
+                        v-for="social in member.socials">
+                        <a
+                          v-if="social.site === 'facebook'"
+                          :href="social.url"
+                          :key="social.site"
+                          target="_blank"
+                          class="social-link">
+                          <img src="~/assets/icons/facebook.svg">
+                        </a>
+                        <a
+                          v-if="social.site === 'github'"
+                          :href="social.url"
+                          :key="social.site"
+                          target="_blank"
+                          class="social-link">
+                          <img src="~/assets/icons/github.svg">
+                        </a>
+                        <a
+                          v-if="social.site === 'instagram'"
+                          :href="social.url"
+                          :key="social.site"
+                          target="_blank"
+                          class="social-link">
+                          <img src="~/assets/icons/instagram.svg">
+                        </a>
+                        <a
+                          v-if="social.site === 'medium'"
+                          :href="social.url"
+                          :key="social.site"
+                          target="_blank"
+                          class="social-link">
+                          <img src="~/assets/icons/medium.svg">
+                        </a>
+                        <a
+                          v-if="social.site === 'reddit'"
+                          :href="social.url"
+                          :key="social.site"
+                          target="_blank"
+                          class="social-link">
+                          <img src="~/assets/icons/reddit.svg">
+                        </a>
+                        <a
+                          v-if="social.site === 'linkedin'"
+                          :href="social.url"
+                          :key="social.site"
+                          target="_blank"
+                          class="social-link">
+                          <img src="~/assets/icons/linkedin.svg">
+                        </a>
+                      </template>
+                    </div>
+                  </template>
                 </div>
               </div>
             </div>
@@ -433,6 +443,7 @@
     margin-bottom: 10px;
     width: 50%;
     max-width: 500px;
+    padding-right: 1%;
     @media screen and (max-width: 1024px) {
       width: 100%;
     }
@@ -440,7 +451,8 @@
       flex-grow: 1;
       width: 100%;
       &.team-social {
-        width: 50%;
+        width: 40%;
+        text-align: right;
       }
     }
   }
@@ -461,7 +473,7 @@
       width: 100%;
 
       &.member-social {
-        width: 50%;
+        width: 40%;
       }
     }
     .member-name {
@@ -471,13 +483,16 @@
   .member-social {
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-end;
     .social-link {
       cursor: pointer;
-      width: 34px;
-      height: 34px;
-      margin-right: 5px;
+      width: 30px;
+      height: 30px;
+      margin-right: 4px;
+      display: inline-table;
       img {
         width: 100%;
+        display: block;
       }
     }
   }
